@@ -5,8 +5,28 @@ namespace List
     public class ArrayList
     {
         public int Length { get; private set; }
+        const double LengthDelta = 1.33d; 
 
         private int[] _array;
+        public int this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Length)
+                {
+                    throw new IndexOutOfRangeException("Index is out of range");
+                }
+                return _array[index];
+            }
+            set
+            {
+                if (index < 0 || index >= Length)
+                {
+                    throw new IndexOutOfRangeException("Index is out of range");
+                }
+                _array[index] = value;
+            }
+        }
 
         public ArrayList()
         {
@@ -23,11 +43,12 @@ namespace List
 
         public ArrayList(int[] initArray)
         {
-            Length = 0;
-            _array = new int[initArray.Length];
-            for (int i = 0; i < initArray.Length; ++i)
+            Length = initArray.Length;
+            int realLength = (int)(Length * LengthDelta + 1);
+            _array = new int[realLength];
+            for (int i = 0; i < Length; ++i)
             {
-                Add(initArray[i]);
+                _array[i] = initArray[i];
             }
         }
 
@@ -35,7 +56,7 @@ namespace List
         {
             if (Length >= _array.Length)
             {
-                Resize(true);
+                this.Resize();
             }
 
             _array[Length] = value;
@@ -43,39 +64,18 @@ namespace List
             ++Length;
         }
 
-        public void PrintArrayList(ArrayList array)
+        public void AddList(ArrayList addList)
         {
-            for (int i = 0; i < Length; i++)
-            {
-                Console.Write($"{_array[i]} ");
-            }
-            Console.WriteLine(Environment.NewLine);
-        }
-        public void AddArray(int[] addArray)
-        {
-            int newLength = Length + addArray.Length;
-
-            int[] tmpArray = new int[newLength];
-            for (int i = 0; i < Length; ++i)
-            {
-                tmpArray[i] = _array[i];
-            }
-            for (int i = Length; i < newLength; ++i)
-            {
-                tmpArray[i] = addArray[i - Length];
-            }
-
-            Length = newLength;
-            _array = tmpArray;
+            AddListByIndex(addList, Length);
         }
         public void AddToStart(int value)
         {
             if (Length >= _array.Length)
             {
-                Resize(true);
+                this.Resize();
             }
 
-            for (int i = Length; i >= 0; --i)
+            for (int i = Length-1; i >= 0; --i)
             {
                 _array[i + 1] = _array[i];
             }
@@ -84,31 +84,32 @@ namespace List
 
             ++Length;
         }
-        public void AddArrayToStart(int[] addArray)
+        public void AddListToStart(ArrayList addList)
         {
-            int quontity = addArray.Length;
-
-            MoveBy(quontity, 0);
-
-            for (int i = 0; i < quontity; ++i)
-            {
-                _array[i] = addArray[i];
-            }
+            AddListByIndex(addList, 0);
         }
         public void AddByIndex(int value, int index)
         {
+            if (index > Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
             if (Length >= _array.Length)
             {
-                Resize(true);
+                this.Resize();
             }
 
             MoveBy(1, index);
 
             _array[index] = value;
         }
-        public void AddArrayByIndex(int[] addArray, int index)
+        public void AddListByIndex(ArrayList addList, int index)
         {
-            int quontity = addArray.Length;
+            if (index > Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            int quontity = addList.Length;
 
             MoveBy(quontity, index);
 
@@ -116,14 +117,22 @@ namespace List
 
             for (int i = index; i < index + quontity; ++i)
             {
-                _array[i] = addArray[count];
+                _array[i] = addList[count];
 
                 count++;
             }
         }
         public void Remove()
         {
-            --Length;
+            if (Length > 0)
+            {
+                --Length;
+            }
+            else
+            {
+                Length = 0;
+            }
+            
         }
         public void Remove(int quontity)
         {
@@ -154,11 +163,15 @@ namespace List
                 }
 
                 --Length;
+            } else
+            {
+                throw new IndexOutOfRangeException();
             }
         }
         public void RemoveByIndex(int index, int quontity)
         {
-            if (index >= 0 && index < Length)
+            
+            if (index >= 0 && index < Length && quontity <= Length - index)
             {
                 for (int i = index; i < Length - quontity; ++i)
                 {
@@ -166,6 +179,14 @@ namespace List
                 }
 
                 Length -= quontity;
+            }
+            else if (index < 0 || index >= Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else
+            {
+                throw new ArgumentException("Quontity can't be bigger than elements left");
             }
         }
 
@@ -191,7 +212,7 @@ namespace List
             }
         }
 
-        public int IndexOf(int value)
+        public int FindIndexOf(int value)
         {
             for (int i = 0; i < Length; ++i)
             {
@@ -206,7 +227,7 @@ namespace List
 
         public void RemoveFirstValue(int value)
         {
-            int index = IndexOf(value);
+            int index = FindIndexOf(value);
 
             if (index >= 0)
             {
@@ -216,7 +237,7 @@ namespace List
 
         public void RemoveAllValues(int value)
         {
-            while (IndexOf(value) >= 0)
+            while (FindIndexOf(value) >= 0)
             {
                 RemoveFirstValue(value);
             }
@@ -227,7 +248,7 @@ namespace List
             for (int i = 0; i < Length / 2; i++)
             {
                 int temp = _array[i];
-                int index = _array.Length - 1 - i;
+                int index = Length - 1 - i;
                 _array[i] = _array[index];
                 _array[index] = temp;
             }
@@ -304,6 +325,40 @@ namespace List
                 _array[index + 1] = newElement;
             }
         }
+
+        public override string ToString()
+        {
+            string result = string.Empty;
+            for (int i = 0; i < Length; ++i)
+            {
+                result += _array[i] + " ";
+            }
+            return result;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is ArrayList)
+            {
+                ArrayList list = (ArrayList)obj;
+                if(this.Length != list.Length)
+                {
+                    return false;
+                }
+                for (int i = 0; i < Length; ++i)
+                {
+                    if (this._array[i] != list._array[i])
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            } else
+            {
+                throw new ArgumentException("Wrong type (not comparable)");
+            }
+        }
+
         private void MoveBy(int quontity, int index)
         {
             int newLength = Length + quontity;
@@ -332,17 +387,9 @@ namespace List
 
             Rewrite(newLength);
         }
-        private void Resize(bool isSmall)
+        private void Resize()
         {
-            int newLength = _array.Length;
-            if (isSmall)
-            {
-                newLength = (int)(newLength * 1.33d + 1);
-            }
-            else
-            {
-                newLength = (int)(newLength * 0.87d + 1);
-            }
+            int newLength = (int)(Length * LengthDelta + 1); 
 
             Rewrite(newLength);
 
@@ -358,6 +405,11 @@ namespace List
             }
 
             _array = tmpArray;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Length, _array);
         }
     }
 }
