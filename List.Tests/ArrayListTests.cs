@@ -3,7 +3,7 @@ using System;
 
 namespace List.Tests
 {
-    public class Tests
+    public class ArrayListTests
     {
         [TestCase(100, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 100 })]
         [TestCase(-10, new int[] {}, new int[] { -10 })]

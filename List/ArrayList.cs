@@ -121,6 +121,10 @@ namespace List
 
                 count++;
             }
+            if (Length >= _array.Length)
+            {
+                this.Resize();
+            }
         }
         public void Remove()
         {
@@ -132,7 +136,10 @@ namespace List
             {
                 Length = 0;
             }
-            
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
+            }
         }
         public void Remove(int quontity)
         {
@@ -143,6 +150,10 @@ namespace List
             else
             {
                 throw new ArgumentException("quontity can't be bigger than Length");
+            }
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
             }
         }
         public void RemoveAtStart()
@@ -167,6 +178,10 @@ namespace List
             {
                 throw new IndexOutOfRangeException();
             }
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
+            }
         }
         public void RemoveByIndex(int index, int quontity)
         {
@@ -187,6 +202,10 @@ namespace List
             else
             {
                 throw new ArgumentException("Quontity can't be bigger than elements left");
+            }
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
             }
         }
 
@@ -233,6 +252,10 @@ namespace List
             {
                 RemoveByIndex(index);
             }
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
+            }
         }
 
         public void RemoveAllValues(int value)
@@ -240,6 +263,10 @@ namespace List
             while (FindIndexOf(value) >= 0)
             {
                 RemoveFirstValue(value);
+            }
+            if (Length * LengthDelta < _array.Length)
+            {
+                this.Resize();
             }
         }
 
