@@ -347,7 +347,7 @@ namespace List
                 while (index >= 0 && _array[index] < newElement)
                 {
                     _array[index + 1] = _array[index];
-                    index = index - 1;
+                    index -= 1;
                 }
                 _array[index + 1] = newElement;
             }
