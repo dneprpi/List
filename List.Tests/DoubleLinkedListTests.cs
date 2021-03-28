@@ -5,15 +5,15 @@ using NUnit.Framework;
 
 namespace List.Tests
 {
-    class LinkedListTests
+    class DoubleLinkedListTests
     {
         [TestCase(100, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 100 })]
         [TestCase(-10, new int[] { 0 }, new int[] { 0, -10 })]
         [TestCase(0, new int[] { }, new int[] { 0 })]
         public void Add_WhenValidValuePassed_ShouldAddToListInLastPosition(int value, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.Add(value);
 
@@ -23,10 +23,11 @@ namespace List.Tests
         [TestCase(100, new int[] { 1, 2, 3, 4, 5 }, new int[] { 100, 1, 2, 3, 4, 5, })]
         [TestCase(-10, new int[] { 0 }, new int[] { -10, 0 })]
         [TestCase(0, new int[] { 1 }, new int[] { 0, 1 })]
+        [TestCase(0, new int[] { }, new int[] { 0 })]
         public void AddToStart_WhenValidValuePassed_ShouldAddToListInFirstPosition(int value, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.AddToStart(value);
 
@@ -45,8 +46,8 @@ namespace List.Tests
         [TestCase(10, 1, new int[] { 1, 2 }, new int[] { 1, 10, 2 })]
         public void AddByIndex_WhenValidDataPassed_ShouldAddToListInIndexPosition(int value, int index, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.AddByIndex(value, index);
 
@@ -62,8 +63,8 @@ namespace List.Tests
 
         public void Remove_WhenNothingPassed_ShouldRemoveLastElement(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.Remove();
 
@@ -77,8 +78,8 @@ namespace List.Tests
 
         public void RemoveAtStart_WhenNothingPassed_ShouldRemoveFirstElement(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveAtStart();
 
@@ -92,8 +93,8 @@ namespace List.Tests
 
         public void RemoveByIndex_WhenValidIndexPassed_ShouldRemoveIndexElement(int index, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveByIndex(index);
 
@@ -107,8 +108,8 @@ namespace List.Tests
 
         public void RemoveNElements_WhenValidQuontityPassed_ShouldRemoveLastNElements(int quontity, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.Remove(quontity);
 
@@ -122,8 +123,8 @@ namespace List.Tests
 
         public void RemoveAtStartNElements_WhenValidQuolityPassed_ShouldRemoveFirstNElements(int quontity, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveAtStart(quontity);
 
@@ -138,8 +139,8 @@ namespace List.Tests
 
         public void RemoveByIndexNElements_WhenValidDataPassed_ShouldRemoveFromIndexNElements(int index, int quontity, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveByIndex(index, quontity);
 
@@ -153,7 +154,7 @@ namespace List.Tests
 
         public void GetValueByIndex_WhenValidIndexPassed_ShouldReturnElementByIndex(int index, int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.GetValueByIndex(index);
 
@@ -167,7 +168,7 @@ namespace List.Tests
 
         public void FindIndexOf_WhenValidValuePassed_ShouldReturnIndex(int value, int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.FindIndexOf(value);
 
@@ -181,8 +182,8 @@ namespace List.Tests
 
         public void SetByIndex_WhenValidDataPassed_ShouldChangeValueByIndex(int value, int index, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.SetByIndex(value, index);
 
@@ -197,8 +198,8 @@ namespace List.Tests
 
         public void Reverse_WhenNothingPassed_ShouldReverseArrayList(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.Reverse();
 
@@ -212,7 +213,7 @@ namespace List.Tests
 
         public void FindIndexOfMaximumElement_WhenNothingPassed_ShouldReturnIndexOfMaximumElement(int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.FindIndexOfMaximumElement();
 
@@ -226,7 +227,7 @@ namespace List.Tests
 
         public void FindIndexOfMinimumElement_WhenNothingPassed_ShouldReturnIndexOfMinimumElement(int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.FindIndexOfMinimumElement();
 
@@ -240,7 +241,7 @@ namespace List.Tests
 
         public void FindMaximumElement_WhenNothingPassed_ShouldReturnMaximumElement(int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.FindMaximumElement();
 
@@ -254,7 +255,7 @@ namespace List.Tests
 
         public void FindMinimumElement_WhenNothingPassed_ShouldReturnMinimumElement(int[] array, int expected)
         {
-            LinkedList arrayActual = new LinkedList(array);
+            DoubleLinkedList arrayActual = new DoubleLinkedList(array);
 
             int actual = arrayActual.FindMinimumElement();
 
@@ -273,8 +274,8 @@ namespace List.Tests
 
         public void RemoveFirstValue_WhenValidValuePassed_ShouldRemoveFirstValue(int value, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveFirstValue(value);
 
@@ -291,8 +292,8 @@ namespace List.Tests
 
         public void RemoveAllValues_WhenValidValuePassed_ShouldRemoveAllValues(int value, int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.RemoveAllValues(value);
 
@@ -307,11 +308,11 @@ namespace List.Tests
 
         public void AddList_WhenValidListPassed_ShouldAddListInTheEnd(int[] actualArray, int[] addArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList addList = new LinkedList(addArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList addList = new DoubleLinkedList(addArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
-            actual.AddLinkedList(addList);
+            actual.AddDoubleLinkedList(addList);
 
             Assert.AreEqual(expected, actual);
         }
@@ -324,11 +325,11 @@ namespace List.Tests
 
         public void AddListToStart_WhenValidListPassed_ShouldAddListToStart(int[] actualArray, int[] addArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList addList = new LinkedList(addArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList addList = new DoubleLinkedList(addArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
-            actual.AddLinkedListToStart(addList);
+            actual.AddDoubleLinkedListToStart(addList);
 
             Assert.AreEqual(expected, actual);
         }
@@ -341,11 +342,11 @@ namespace List.Tests
 
         public void AddListByIndex_WhenValidListPassed_ShouldAddListAfterIndex(int index, int[] actualArray, int[] addArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList addList = new LinkedList(addArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList addList = new DoubleLinkedList(addArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
-            actual.AddLinkedListToIndex(addList, index);
+            actual.AddDoubleLinkedListToIndex(addList, index);
 
             Assert.AreEqual(expected, actual);
         }
@@ -358,8 +359,8 @@ namespace List.Tests
 
         public void SortAscending_WhenNothingPassed_ShouldSortArrayList(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.SortMergeAscending();
 
@@ -374,8 +375,8 @@ namespace List.Tests
 
         public void SortDescending_WhenNothingPassed_ShouldSortArrayList(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.SortMergeDescending();
 
@@ -390,8 +391,8 @@ namespace List.Tests
 
         public void SortIsertionAscending_WhenNothingPassed_ShouldSortArrayList(int[] actualArray, int[] expectedArray)
         {
-            LinkedList actual = new LinkedList(actualArray);
-            LinkedList expected = new LinkedList(expectedArray);
+            DoubleLinkedList actual = new DoubleLinkedList(actualArray);
+            DoubleLinkedList expected = new DoubleLinkedList(expectedArray);
 
             actual.SortInsertionAscending();
 
